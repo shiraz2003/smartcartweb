@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Cart - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+  <div class="app-container">    <aside id="sidebar"></aside>
+    <main class="main-content">
+      <h2 class="text-3xl font-bold mb-6">Smart Cart Analytics Dashboard</h2>
+      <div id="dashboard-analytics" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Total Carts</h3><p id="totalCarts" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Online Carts</h3><p id="onlineCarts" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Completed Carts</h3><p id="completedCarts" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Total Items</h3><p id="totalItems" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Total Stock</h3><p id="totalStock" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Inventory Value</h3><p id="totalInventoryValue" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Total Sessions</h3><p id="totalSessions" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Active Sessions</h3><p id="activeSessions" class="text-2xl font-bold">-</p></div>
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center"><h3 class="text-lg font-semibold mb-2">Total Revenue</h3><p id="totalRevenue" class="text-2xl font-bold">-</p></div>
+      </div>
+    </main>
+  </div>
+  <footer class="text-center py-4 text-gray-500 bg-gray-100 border-t"><p>&copy; 2025 Smart Cart</p></footer>  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <!-- Add Firebase Auth SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  <script src="../js/authGuard.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/loadSidebar.js"></script>
+</body>
+</html>

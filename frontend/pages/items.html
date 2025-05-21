@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Cart - Items</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="../css/common.css"
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-header h2:before {
+      content: '🛒';
+      margin-right: 10px;
+    }
+
+    .sidebar-nav {
+      padding: 1rem 0;
+      flex-grow: 1;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .nav-item.active {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: white;
+      border-left: 3px solid white;
+    }
+
+    .nav-icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      padding: 2rem;
+      background-color: #f8fafc;
+      overflow-y: auto;
+    }
+
+    /* Card Styles */
+    .card-hover:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .bg-gradient-mono {
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    }
+
+    .bg-header-gradient {
+      background: linear-gradient(145deg, #000000, #333333);
+    }
+
+    .btn-mono {
+      background: linear-gradient(145deg, #000000, #333333);
+      color: white;
+      border: none;
+    }
+
+    .btn-mono:hover {
+      background: linear-gradient(145deg, #333333, #000000);
+      color: white;
+    }
+
+    .table-striped-mono tbody tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
+    }
+
+    /* Stats Cards */
+    .stats-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stats-card {
+      flex: 1;
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      padding: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 70px;
+        overflow: hidden;
+      }
+      
+      .sidebar-header h2 {
+        font-size: 0;
+      }
+      
+      .sidebar-header h2:before {
+        font-size: 1.5rem;
+        margin-right: 0;
+      }
+      
+      .nav-item span:not(.nav-icon) {
+        display: none;
+      }
+      
+      .nav-icon {
+        margin-right: 0;
+        font-size: 1.25rem;
+      }
+      
+      .main-content {
+        margin-left: 70px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      
+      .sidebar-nav ul {
+        display: flex;
+        overflow-x: auto;
+      }
+      
+      .sidebar-nav li {
+        flex: 1;
+      }
+      
+      .nav-item {
+        justify-content: center;
+        padding: 0.5rem;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+      }
+      
+      .nav-item.active {
+        border-left: none;
+        border-bottom: 3px solid white;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>  <div class="app-container">
+    <!-- Sidebar - Will be loaded via JavaScript -->
+    <aside id="sidebar">
+      <!-- Sidebar content will be loaded here -->
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Items Management</h1>
+        <p class="text-gray-600">View and manage your inventory items</p>
+        <div class="w-24 h-1 bg-black mt-3 rounded-full"></div>
+      </header>
+
+      <!-- Stats Cards -->
+      <div class="stats-row">
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Items</h3>
+              <p class="text-2xl font-bold text-black" id="totalItems">0</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-boxes text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Low Stock</h3>
+              <p class="text-2xl font-bold text-black" id="lowStock">0</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-exclamation-triangle text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Value</h3>
+              <p class="text-2xl font-bold text-black" id="totalValue">$0.00</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-dollar-sign text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-lg-7">
+          <!-- Items List Card -->
+          <div class="card border-0 shadow-lg rounded-lg overflow-hidden mb-4">
+            <div class="card-header bg-header-gradient text-white p-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-xl font-semibold mb-0">
+                  <i class="fas fa-list-ul me-2"></i>Items List
+                </h2>              <div class="input-group w-50">
+                  <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search items...">
+                  <button class="btn btn-light btn-sm" type="button" id="searchButton">
+                    <i class="fas fa-search text-black"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover table-striped-mono mb-0">
+                  <thead class="bg-gray-100">
+                    <tr>
+                      <th class="px-4 py-3">Item Name</th>
+                      <th class="px-4 py-3">Category</th>
+                      <th class="px-4 py-3">Price</th>
+                      <th class="px-4 py-3">Stock</th>
+                      <th class="px-4 py-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="items">
+                    <tr>
+                      <td colspan="5" class="text-center py-4 text-gray-500">
+                        <div class="d-flex justify-content-center">
+                          <div class="spinner-border text-dark me-2" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading items...
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center py-3">
+              <span class="text-sm text-gray-600">Showing <span id="itemCount">0</span> items</span>
+              <div>
+                <button class="btn btn-sm btn-outline-dark me-2">
+                  <i class="fas fa-file-export me-1"></i> Export
+                </button>
+                <button class="btn btn-sm btn-outline-dark">
+                  <i class="fas fa-sync-alt me-1"></i> Refresh
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Add Item Form -->
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-lg rounded-lg w-100">
+            <div class="card-header bg-header-gradient text-white p-3">
+              <h2 class="text-xl font-semibold mb-0">
+                <i class="fas fa-plus-circle me-2"></i>Add New Item
+              </h2>
+            </div>
+            <div class="card-body p-4">
+              <form id="addItemForm" class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label for="itemName" class="form-label text-gray-700 font-medium">Item Name</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-gray-100">
+                      <i class="fas fa-tag text-gray-500"></i>
+                    </span>
+                    <input type="text" class="form-control border-gray-300" 
+                      id="itemName" placeholder="Enter item name" required>
+                    <div class="invalid-feedback">
+                      Please provide an item name.
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="itemCategory" class="form-label text-gray-700 font-medium">Category</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-gray-100">
+                      <i class="fas fa-folder text-gray-500"></i>
+                    </span>
+                    <select class="form-select border-gray-300" 
+                      id="itemCategory" required>
+                      <option value="" selected disabled>Select a category</option>
+                      <option value="Electronics">Electronics</option>
+                      <option value="Clothing">Clothing</option>
+                      <option value="Food">Food</option>
+                      <option value="Home">Home</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a category.
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="itemPrice" class="form-label text-gray-700 font-medium">Price ($)</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-gray-100">
+                        <i class="fas fa-dollar-sign text-gray-500"></i>
+                      </span>
+                      <input type="number" step="0.01" min="0" class="form-control border-gray-300" 
+                        id="itemPrice" placeholder="0.00" required>
+                      <div class="invalid-feedback">
+                        Please provide a valid price.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="itemStock" class="form-label text-gray-700 font-medium">Stock Quantity</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-gray-100">
+                        <i class="fas fa-cubes text-gray-500"></i>
+                      </span>
+                      <input type="number" min="0" class="form-control border-gray-300" 
+                        id="itemStock" placeholder="0" required>
+                      <div class="invalid-feedback">
+                        Please provide a valid quantity.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="itemDescription" class="form-label text-gray-700 font-medium">Description (Optional)</label>
+                  <textarea class="form-control border-gray-300" 
+                    id="itemDescription" rows="3" placeholder="Enter item description"></textarea>
+                </div>
+                
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-mono py-2 shadow-md hover:shadow-lg transition duration-300">
+                    <i class="fas fa-plus-circle me-2"></i>Add Item
+                  </button>
+                  <button type="reset" class="btn btn-outline-dark">
+                    <i class="fas fa-undo me-2"></i>Reset Form
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-8 py-4 border-t border-gray-200">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start">
+            <p class="text-gray-600 mb-0">&copy; 2025 Smart Cart. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <div class="text-gray-500">
+              <a href="#" class="text-gray-500 hover:text-black mx-2"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="text-gray-500 hover:text-black mx-2"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-500 hover:text-black mx-2"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="text-gray-500 hover:text-black mx-2"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <!-- Add Firebase Auth SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  
+  <!-- Custom JavaScript -->
+  <script src="../js/authGuard.js"></script>
+  <script src="../js/loadSidebar.js"></script>
+  <script src="../js/items.js"></script>
+</body>
+</html>
