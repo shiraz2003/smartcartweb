@@ -3,63 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analytics Dashboard</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <title>Smart Cart - Analytics</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="../css/common.css">
   <style>
-    .analytics-container { max-width: 700px; margin: 40px auto; padding: 24px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
-    .analytics-title { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
-    .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .analytics-card { background: #f8fafc; border-radius: 6px; padding: 1.2rem; box-shadow: 0 1px 4px #0001; text-align: center; }
-    .analytics-label { font-size: 1.1rem; color: #555; }
-    .analytics-value { font-size: 1.7rem; font-weight: bold; color: #1e293b; margin-top: 0.3rem; }
+    /* Stats row styles */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .stats-card { background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s; }
+    .stats-card:hover { transform: translateY(-4px); }
+    .stats-card h3 { margin-bottom: 0.5rem; }
+    .stats-card p { font-size: 1.5rem; font-weight: bold; margin: 0; }
+    .stats-card i { font-size: 2rem; color: #4b5563; }
     .error-message { color: #b91c1c; text-align: center; margin-top: 1.5rem; }
     .loading-message { color: #64748b; text-align: center; margin-top: 1.5rem; }
   </style>
 </head>
-<body>
-  <div class="analytics-container">
-    <div class="analytics-title">Analytics Dashboard</div>
-    <div id="analytics-loading" class="loading-message">Loading analytics...</div>
-    <div id="analytics-error" class="error-message" style="display:none;"></div>
-    <div id="analytics-grid" class="analytics-grid" style="display:none;">
-      <div class="analytics-card">
-        <div class="analytics-label">Total Carts</div>
-        <div class="analytics-value" id="totalCarts">-</div>
+<body>  <div class="app-container">
+    <!-- Sidebar - Will be loaded via JavaScript -->
+    <aside id="sidebar">
+      <!-- Sidebar content will be loaded here -->
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Online Carts</div>
-        <div class="analytics-value" id="onlineCarts">-</div>
+    </aside>
+    <main class="main-content">
+      <!-- Header -->
+      <header class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Analytics Dashboard</h1>
+        <p class="text-gray-600">View and monitor your store's key metrics</p>
+        <div class="w-24 h-1 bg-black mt-3 rounded-full"></div>
+      </header>
+      <!-- Stats Cards -->
+      <div id="analytics-grid" class="stats-row">
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Carts</h3>
+              <p class="text-2xl font-bold text-black" id="totalCarts">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-shopping-cart text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Online Carts</h3>
+              <p class="text-2xl font-bold text-black" id="onlineCarts">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-wifi text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Completed Carts</h3>
+              <p class="text-2xl font-bold text-black" id="completedCarts">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-check-circle text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Items</h3>
+              <p class="text-2xl font-bold text-black" id="totalItems">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-boxes text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Stock</h3>
+              <p class="text-2xl font-bold text-black" id="totalStock">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-cubes text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Inventory Value</h3>
+              <p class="text-2xl font-bold text-black" id="totalInventoryValue">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-dollar-sign text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Sessions</h3>
+              <p class="text-2xl font-bold text-black" id="totalSessions">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-users text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Active Sessions</h3>
+              <p class="text-2xl font-bold text-black" id="activeSessions">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-bolt text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700">Total Revenue</h3>
+              <p class="text-2xl font-bold text-black" id="totalRevenue">-</p>
+            </div>
+            <div class="bg-gray-200 h-12 w-12 rounded-full flex items-center justify-center">
+              <i class="fas fa-coins text-black text-xl"></i>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Completed Carts</div>
-        <div class="analytics-value" id="completedCarts">-</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Total Items</div>
-        <div class="analytics-value" id="totalItems">-</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Total Stock</div>
-        <div class="analytics-value" id="totalStock">-</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Inventory Value</div>
-        <div class="analytics-value" id="totalInventoryValue">-</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Total Sessions</div>
-        <div class="analytics-value" id="totalSessions">-</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-label">Active Sessions</div>
-        <div class="analytics-value" id="activeSessions">-</div>
-      </div>
-      <div class="analytics-card" style="grid-column: 1 / -1;">
-        <div class="analytics-label">Total Revenue</div>
-        <div class="analytics-value" id="totalRevenue">-</div>
-      </div>
-    </div>
-  </div>
+      <div id="analytics-loading" class="text-center text-gray-500 mb-4">Loading analytics...</div>
+      <div id="analytics-error" class="text-center text-red-600 mb-4" style="display:none;"></div>
+    </main>
+  </div>  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <!-- Add Firebase Auth SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  
+  <!-- Custom JavaScript -->
+  <script src="../js/authGuard.js"></script>
+  <script src="../js/loadSidebar.js"></script>
   <script src="../js/analytics.js"></script>
 </body>
 </html>
