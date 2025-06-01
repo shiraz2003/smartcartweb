@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .analytics-container { max-width: 700px; margin: 40px auto; padding: 24px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    .analytics-title { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
+    .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .analytics-card { background: #f8fafc; border-radius: 6px; padding: 1.2rem; box-shadow: 0 1px 4px #0001; text-align: center; }
+    .analytics-label { font-size: 1.1rem; color: #555; }
+    .analytics-value { font-size: 1.7rem; font-weight: bold; color: #1e293b; margin-top: 0.3rem; }
+    .error-message { color: #b91c1c; text-align: center; margin-top: 1.5rem; }
+    .loading-message { color: #64748b; text-align: center; margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="analytics-container">
+    <div class="analytics-title">Analytics Dashboard</div>
+    <div id="analytics-loading" class="loading-message">Loading analytics...</div>
+    <div id="analytics-error" class="error-message" style="display:none;"></div>
+    <div id="analytics-grid" class="analytics-grid" style="display:none;">
+      <div class="analytics-card">
+        <div class="analytics-label">Total Carts</div>
+        <div class="analytics-value" id="totalCarts">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Online Carts</div>
+        <div class="analytics-value" id="onlineCarts">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Completed Carts</div>
+        <div class="analytics-value" id="completedCarts">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Total Items</div>
+        <div class="analytics-value" id="totalItems">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Total Stock</div>
+        <div class="analytics-value" id="totalStock">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Inventory Value</div>
+        <div class="analytics-value" id="totalInventoryValue">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Total Sessions</div>
+        <div class="analytics-value" id="totalSessions">-</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-label">Active Sessions</div>
+        <div class="analytics-value" id="activeSessions">-</div>
+      </div>
+      <div class="analytics-card" style="grid-column: 1 / -1;">
+        <div class="analytics-label">Total Revenue</div>
+        <div class="analytics-value" id="totalRevenue">-</div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/analytics.js"></script>
+</body>
+</html>
