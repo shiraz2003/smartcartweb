@@ -45,5 +45,3 @@ npm install
 npm start
 ```
 
-## License
-ISC
